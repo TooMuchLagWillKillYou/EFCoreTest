@@ -27,7 +27,7 @@ namespace EFCoreTest.API.Controllers
         {
             var category = await _context.Categories.SingleOrDefaultAsync(x => x.CategoryId == id);
 
-            if (category == null)
+            if (category is null)
                 return NotFound();
 
             return Ok(category);
