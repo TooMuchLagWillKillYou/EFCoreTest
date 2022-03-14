@@ -11,6 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NorthwindDBContext>(
         options => options.UseSqlServer("name=ConnectionStrings:Northwind"));
+
+builder.Services.AddCors(options =>
+        options.AddDefaultPolicy(builder => builder.WithOrigins("https://localhost:3000/")));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +25,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x.AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .WithOrigins("http://localhost:3000"));
 
 app.UseAuthorization();
 
